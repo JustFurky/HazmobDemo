@@ -14,20 +14,6 @@ public class MarketManager : MonoBehaviour
     [SerializeField] private GoldManager _goldManager;
     [SerializeField] private BallManager _ballManager;
     [SerializeField] private CanvasManager _canvasManager;
-    void OnBallsDataRecevied()
-    {
-
-        foreach (var ball in balls)
-        {
-            GameObject newItemBall = Instantiate(itemBallPrefab, uiContainer);
-
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener((eventData) => { BuyItem(eventData); });
-            newItemBall.GetComponent<EventTrigger>().triggers.Add(entry);
-            newItemBall.GetComponent<BallUIUpdater>().SetProperties(ball.displayName, ball.price.ToString(), ball.color);
-        }
-    }
 
     public void BuyItem(BaseEventData bed)
     {
@@ -40,7 +26,6 @@ public class MarketManager : MonoBehaviour
             Debug.Log("Can Buy");
             _goldManager.GoldValue -= (int)ballPrice;
             SetDataBallManager(Selected.color, Selected.mass, Selected.extent, ballIndex);
-            //_ballManager.BallValue = index1;
         }
         else
         {
@@ -89,6 +74,20 @@ public class MarketManager : MonoBehaviour
             }
             OnBallsDataRecevied();
         }, error => Debug.LogError(error.GenerateErrorReport()));
+    }
+    void OnBallsDataRecevied()
+    {
+
+        foreach (var ball in balls)
+        {
+            GameObject newItemBall = Instantiate(itemBallPrefab, uiContainer);
+
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerClick;
+            entry.callback.AddListener((eventData) => { BuyItem(eventData); });
+            newItemBall.GetComponent<EventTrigger>().triggers.Add(entry);
+            newItemBall.GetComponent<BallUIUpdater>().SetProperties(ball.displayName, ball.price.ToString(), ball.color);
+        }
     }
 }
 

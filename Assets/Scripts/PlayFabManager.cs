@@ -6,8 +6,6 @@ using PlayFab.Json;
 
 public class PlayFabManager : MonoBehaviour
 {
-
-    [SerializeField] private ObsManager _obsManager;
     [SerializeField] private GoldManager _goldManager;
     [SerializeField] private BallManager _ballManager;
     [SerializeField] private MarketManager _marketManager;
@@ -30,19 +28,6 @@ public class PlayFabManager : MonoBehaviour
         PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnDataReceived, OnError);
     }
 
-    void OnDataReceived(GetUserDataResult result)
-    {
-        if (result.Data != null && result.Data.ContainsKey("Gold") && result.Data.ContainsKey("HighScore") && result.Data.ContainsKey("BallIndex"))
-        {
-            int receivedHighScore = (int)float.Parse(result.Data["HighScore"].Value);
-            int receivedGold = int.Parse(result.Data["Gold"].Value);
-            int BallIndex = int.Parse(result.Data["BallIndex"].Value);
-            _goldManager.GoldValue = receivedGold;
-            _highScoreManager.HighScore = receivedHighScore;
-            _ballManager.BallIndex = BallIndex;
-        }
-    }
-
     public void SaveAppearance()
     {
         var request = new UpdateUserDataRequest
@@ -55,6 +40,19 @@ public class PlayFabManager : MonoBehaviour
             }
         };
         PlayFabClientAPI.UpdateUserData(request, OnDataSend, OnError);
+    }
+
+    void OnDataReceived(GetUserDataResult result)
+    {
+        if (result.Data != null && result.Data.ContainsKey("Gold") && result.Data.ContainsKey("HighScore") && result.Data.ContainsKey("BallIndex"))
+        {
+            int receivedHighScore = (int)float.Parse(result.Data["HighScore"].Value);
+            int receivedGold = int.Parse(result.Data["Gold"].Value);
+            int BallIndex = int.Parse(result.Data["BallIndex"].Value);
+            _goldManager.GoldValue = receivedGold;
+            _highScoreManager.HighScore = receivedHighScore;
+            _ballManager.BallIndex = BallIndex;
+        }
     }
 
     void OnDataSend(UpdateUserDataResult result)

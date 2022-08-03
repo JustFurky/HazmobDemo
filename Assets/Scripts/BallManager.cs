@@ -32,10 +32,8 @@ public class BallManager : MonoBehaviour
 
     }
 
-    //BallScripte ulaşmaya çalışan scriptler serializefield olarak ballmanageri alıp bu fonksiyonu çağırarak ballscripte ulaşılabilir olması gerek.
     public BallScript GetCurrentBallScript()
     {
-        //if (_currentBallScript == null) CreateBall();
         return _currentBallScript;
     }
 }

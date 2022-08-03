@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class SticksMovement : MonoBehaviour
 {
-    private const float kVelocityMultiplier = 5;
+    public float DragSpeed;
+
+
+    private const float kVelocityMultiplier = 2;
 
     private Vector2 _defaultPosition;
-    public float DragSpeed;
 
     private float _velocityY;
     private float _recentYPosition;
@@ -15,11 +17,11 @@ public class SticksMovement : MonoBehaviour
     }
     public void OnMouseDrag()
     {
-       
+
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        transform.position = new Vector2(transform.position.x, Mathf.Clamp(mousePos.y, -Screen.height/2, Screen.height));
-        
+        transform.position = new Vector2(transform.position.x, Mathf.Clamp(mousePos.y, -Screen.height / 2, Screen.height));
+
         DragSpeed = GetMouseY();
     }
     public void OnMouseUp()
@@ -46,8 +48,7 @@ public class SticksMovement : MonoBehaviour
         if (rigidbody2D)
         {
             Vector2 forceDirection = rigidbody2D.velocity.normalized;
-            Debug.Log(forceDirection);
-            rigidbody2D.AddForce(-forceDirection * (1 + _velocityY) * kVelocityMultiplier, ForceMode2D.Impulse);
+            rigidbody2D.AddForce(forceDirection * (1 + _velocityY) * kVelocityMultiplier, ForceMode2D.Impulse);
         }
     }
 }

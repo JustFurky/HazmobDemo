@@ -20,21 +20,6 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject _loginPanel;
     [SerializeField] private GameObject _shopPanel;
     [SerializeField] private GameObject _retryPanel;
-
-    private void SetHighScore(int highScore)
-    {
-        if (_highScoreText)
-        {
-            _highScoreText.text = highScore.ToString();
-        }
-    }
-    private void SetGoldText()
-    {
-        if (_goldText)
-        {
-            _goldText.text = _goldManager.GoldValue.ToString();
-        }
-    }
     public void Login()
     {
         _playFabManager.Login();
@@ -86,4 +71,18 @@ public class CanvasManager : MonoBehaviour
         ballScript.LevelFailed += LevelFailed;
     }
 
+    private void SetHighScore(int highScore)
+    {
+        if (_highScoreText)
+        {
+            _highScoreText.text = highScore.ToString();
+        }
+    }
+    private void SetGoldText()
+    {
+        if (_goldText)
+        {
+            _goldText.text = _goldManager.GoldValue.ToString();
+        }
+    }
 }

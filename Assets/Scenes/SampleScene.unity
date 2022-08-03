@@ -1874,7 +1874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7563548831e8a0543887a5ea2212ba65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obsManager: {fileID: 1159076826}
   _goldManager: {fileID: 43134703}
   _ballManager: {fileID: 1467400230}
   _marketManager: {fileID: 247427906}

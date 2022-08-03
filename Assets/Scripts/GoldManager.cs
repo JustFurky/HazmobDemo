@@ -9,6 +9,7 @@ public class GoldManager : MonoBehaviour
     {
         _ballManager.GetCurrentBallScript().AddGold += addGold;
     }
+
     private void addGold()
     {
         GoldValue += 10;

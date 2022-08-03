@@ -12,7 +12,6 @@ public class BallScript : MonoBehaviour
     public Color32 BallColor;
 
     public event Action AddGold;
-    //public static event Action AddScore;
     public event Action<int> UpgradeHighScore;
     public event Action LevelFailed;
 
@@ -32,7 +31,6 @@ public class BallScript : MonoBehaviour
         if (transform.position.y > _highScore && this.enabled)
         {
             _highScore = (int)transform.position.y;
-            _gameZone.position = Vector3.Lerp(_gameZone.position, new Vector3(0, _gameZone.position.y, 0), .5f);
             UpgradeHighScore(_highScore);
         }
     }
