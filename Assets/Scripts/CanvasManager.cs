@@ -20,6 +20,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject _loginPanel;
     [SerializeField] private GameObject _shopPanel;
     [SerializeField] private GameObject _retryPanel;
+
+    [Header("Other Referances")]
+    [SerializeField] SticksMovement _leftStick;
+    [SerializeField] SticksMovement _rightStick;
     public void Login()
     {
         _playFabManager.Login();
@@ -58,6 +62,8 @@ public class CanvasManager : MonoBehaviour
         _playFabManager.SaveAppearance();
         _inGamePanel.SetActive(false);
         _retryPanel.SetActive(true);
+        _leftStick.enabled=false;
+        _rightStick.enabled = false;
     }
 
     private void SetListeners()
@@ -75,7 +81,7 @@ public class CanvasManager : MonoBehaviour
     {
         if (_highScoreText)
         {
-            _highScoreText.text = highScore.ToString();
+            _highScoreText.text = highScore.ToString()+"M";
         }
     }
     private void SetGoldText()

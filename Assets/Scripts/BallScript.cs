@@ -1,7 +1,4 @@
-using PlayFab;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallScript : MonoBehaviour
@@ -46,6 +43,13 @@ public class BallScript : MonoBehaviour
         {
             LevelFailed?.Invoke();
             Destroy(gameObject, 1);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("UpperLimit"))
+        {
+            _gameZone.position = Vector3.Lerp(_gameZone.position, new Vector3(0, _gameZone.position.y + 1, 0), .1f);
         }
     }
 

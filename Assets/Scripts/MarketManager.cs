@@ -26,6 +26,8 @@ public class MarketManager : MonoBehaviour
             Debug.Log("Can Buy");
             _goldManager.GoldValue -= (int)ballPrice;
             SetDataBallManager(Selected.color, Selected.mass, Selected.extent, ballIndex);
+
+            //ERRORINF: Set data ball manageri sadece birþey satýn aldýðýmýzda tetiklediðimiz için birþey satýn almadýðýmýz zamanlarda 0 döndürüyor ve birþeyler satýn aldýktan sonra çýkýp girersek topumuz görünmez oluyor.
         }
         else
         {
@@ -71,13 +73,16 @@ public class MarketManager : MonoBehaviour
                     index = System.Convert.ToSingle(w);
 
                 balls.Add(new BallItem { displayName = ball.DisplayName, color = color, mass = mass, extent = extent, price = ball.VirtualCurrencyPrices["RM"], index = index });
+
+                if (_ballManager.BallIndex == index)
+                    SetDataBallManager(color, mass, extent, (int)index);
+
             }
             OnBallsDataRecevied();
         }, error => Debug.LogError(error.GenerateErrorReport()));
     }
     void OnBallsDataRecevied()
     {
-
         foreach (var ball in balls)
         {
             GameObject newItemBall = Instantiate(itemBallPrefab, uiContainer);

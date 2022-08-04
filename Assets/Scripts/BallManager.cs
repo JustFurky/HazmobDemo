@@ -6,9 +6,12 @@ public class BallManager : MonoBehaviour
 {
     [Header("Ball Properties From PlayFab")]
     public int BallIndex;
-    public float BallMass;
-    public Color32 BallColor;
-    public float BallExtend;
+
+
+
+    [HideInInspector] public Color32 BallColor;
+    [HideInInspector] public float BallExtend;
+    [HideInInspector] public float BallMass;
 
     [Header("Ball Object References")]
     [SerializeField] private BallScript _ball;
@@ -18,7 +21,10 @@ public class BallManager : MonoBehaviour
 
     private BallScript _currentBallScript;
 
-
+    public BallScript GetCurrentBallScript()
+    {
+        return _currentBallScript;
+    }
     public void CreateBall()
     {
         _currentBallScript = Instantiate(_ball);
@@ -28,12 +34,5 @@ public class BallManager : MonoBehaviour
             _currentBallScript.SetProperties(1, 1, Color.white);
         else
             _currentBallScript.SetProperties(BallMass, BallExtend, BallColor);
-
-
-    }
-
-    public BallScript GetCurrentBallScript()
-    {
-        return _currentBallScript;
     }
 }

@@ -13,26 +13,25 @@ public class SticksMovement : MonoBehaviour
     private float _recentYPosition;
     private void Awake()
     {
-        _defaultPosition = transform.position;
+        _defaultPosition = transform.localPosition;
     }
     public void OnMouseDrag()
     {
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        transform.position = new Vector2(transform.position.x, Mathf.Clamp(mousePos.y, -Screen.height / 2, Screen.height));
+        transform.localPosition = new Vector2(transform.localPosition.x, Mathf.Clamp(mousePos.y-transform.parent.position.y, -Screen.height / 2, Screen.height));
 
         DragSpeed = GetMouseY();
     }
     public void OnMouseUp()
     {
-        transform.position = _defaultPosition;
+        transform.localPosition = _defaultPosition;
     }
 
     private void LateUpdate()
     {
         _velocityY = transform.position.y - _recentYPosition;
-        Debug.Log(_velocityY);
         _recentYPosition = transform.position.y;
 
     }
